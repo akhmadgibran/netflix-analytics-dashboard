@@ -19,21 +19,25 @@
 
 ## 📊 Demo
 
-> **Live Demo**: [Lihat Dashboard](https://your-deployed-url.com) _(Coming Soon)_
+> **Live Demo**: [Lihat Dashboard](https://akhmadnabilg.pythonanywhere.com/)
 
 ### Screenshots
 
 **Dashboard Overview**
-![Dashboard Preview](static/images/screenshot-hero.png)
+<img width="1916" height="685" alt="image" src="https://github.com/user-attachments/assets/f0ced8a8-b3e6-4788-901c-0411d1592e0a" />
+
 
 **Data Cleaning Process**
-![Data Cleaning](static/images/screenshot-cleaning.png)
+<img width="1909" height="927" alt="image" src="https://github.com/user-attachments/assets/e8914893-718a-4822-8fc0-148f74089f9e" />
+
 
 **Interactive Visualizations**
-![Visualizations](static/images/screenshot-viz.png)
+<img width="1916" height="941" alt="image" src="https://github.com/user-attachments/assets/e7085b63-97b8-470d-9153-d977a5717133" />
+
 
 **Insights & Analytics**
-![Insights](static/images/screenshot-insights.png)
+<img width="1917" height="958" alt="image" src="https://github.com/user-attachments/assets/7da22730-89e0-4549-b94e-7f3a4ce2e598" />
+
 
 ---
 
