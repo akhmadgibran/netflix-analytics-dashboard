@@ -1262,25 +1262,27 @@
                 }
             });
 
-            // Accordion Toggle
-            document.querySelectorAll(".accordion-header").forEach((header) => {
-                header.addEventListener("click", () => {
-                    const item = header.parentElement;
-                    const wasActive = item.classList.contains("active");
+            // Toggle step content for data cleaning process
+            function toggleStep(stepNumber) {
+                const content = document.getElementById(`step-${stepNumber}`);
+                const stepCard = content.parentElement;
+                const stepHeader = content.previousElementSibling;
+                const icon = stepHeader.querySelector(".step-icon");
 
-                    // Close all accordions
-                    document
-                        .querySelectorAll(".accordion-item")
-                        .forEach((i) => {
-                            i.classList.remove("active");
-                        });
+                // Toggle active state
+                stepCard.classList.toggle("active");
+                content.classList.toggle("active");
 
-                    // Open clicked accordion if it wasn't active
-                    if (!wasActive) {
-                        item.classList.add("active");
-                    }
-                });
-            });
+                // Rotate icon
+                if (stepCard.classList.contains("active")) {
+                    icon.style.transform = "rotate(180deg)";
+                } else {
+                    icon.style.transform = "rotate(0deg)";
+                }
+            }
+
+            // Make toggleStep available globally
+            window.toggleStep = toggleStep;
 
             // Table Scroll Indicators
             document.querySelectorAll(".table-scroll").forEach((container) => {
