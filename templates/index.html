@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Dashboard Analisis Netflix</title>
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='style.css') }}"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <!-- <svg
+                        class="netflix-icon"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                    >
+                        <path
+                            d="M5 2L19 2L19 22L5 22L5 2M7 4L7 20L9 20L9 4L7 4M11 4L11 20L13 20L13 4L11 4M15 4L15 20L17 20L17 4L15 4Z"
+                        />
+                    </svg> -->
+                    <span>Netflix Analytics</span>
+                </div>
+                <button class="menu-toggle" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-menu">
+                    <li><a href="#data" class="nav-link">Data</a></li>
+                    <li>
+                        <a href="#visualisasi" class="nav-link">Visualisasi</a>
+                    </li>
+                    <li><a href="#insights" class="nav-link">Insights</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Hero Header -->
+        <header class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">Dashboard Analisis Konten Netflix</h1>
+                <p class="hero-subtitle">
+                    Eksplorasi mendalam terhadap ribuan konten di platform
+                    streaming terpopuler
+                </p>
+                <div class="dataset-info">
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
+                        />
+                    </svg>
+                    <span
+                        >Dataset:
+                        <a
+                            href="https://www.kaggle.com/datasets/shivamb/netflix-shows"
+                            target="_blank"
+                            rel="noopener"
+                            >Kaggle - Netflix Shows</a
+                        ></span
+                    >
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">8,000+</div>
+                        <div class="stat-label">Konten</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">10+</div>
+                        <div class="stat-label">Visualisasi</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">190+</div>
+                        <div class="stat-label">Negara</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-overlay"></div>
+        </header>
+
+        <main>
+            <!-- Data Section -->
+            <section id="data" class="section">
+                <div class="section-header">
+                    <span class="section-badge">Langkah 1</span>
+                    <h2 class="section-title">Data Mentah & Pembersihan</h2>
+                    <p class="section-description">
+                        Proses transformasi dari data mentah hingga siap
+                        dianalisis
+                    </p>
+                </div>
+
+                <!-- Data Cleaning Process -->
+                <div class="cleaning-process">
+                    <h3 class="process-title">🔧 Proses Pembersihan Data</h3>
+                    <p class="process-intro">
+                        Dataset Netflix dari Kaggle memiliki beberapa masalah
+                        yang perlu dibersihkan sebelum analisis. Berikut adalah
+                        langkah-langkah yang dilakukan:
+                    </p>
+
+                    <div class="process-steps">
+                        <div class="step-card">
+                            <div class="step-header" onclick="toggleStep(1)">
+                                <div class="step-number">01</div>
+                                <div class="step-info">
+                                    <h4>Identifikasi Missing Values</h4>
+                                    <span class="step-status"
+                                        >Analisis Awal</span
+                                    >
+                                </div>
+                                <svg
+                                    class="step-icon"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                >
+                                    <path d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+                            <div class="step-content" id="step-1">
+                                <p>
+                                    <strong>Masalah:</strong> Beberapa kolom
+                                    memiliki nilai kosong (NaN)
+                                </p>
+                                <ul>
+                                    <li>
+                                        <code>director</code>: 2,634 nilai
+                                        hilang
+                                    </li>
+                                    <li><code>cast</code>: 825 nilai hilang</li>
+                                    <li>
+                                        <code>country</code>: 831 nilai hilang
+                                    </li>
+                                    <li>
+                                        <code>date_added</code>: 10 nilai hilang
+                                    </li>
+                                    <li><code>rating</code>: 4 nilai hilang</li>
+                                </ul>
+                                <p>
+                                    <strong>Dampak:</strong> Data yang tidak
+                                    lengkap dapat menghasilkan analisis yang
+                                    bias atau error saat visualisasi.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-header" onclick="toggleStep(2)">
+                                <div class="step-number">02</div>
+                                <div class="step-info">
+                                    <h4>Imputasi Data Kategorik</h4>
+                                    <span class="step-status"
+                                        >Fill Missing</span
+                                    >
+                                </div>
+                                <svg
+                                    class="step-icon"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                >
+                                    <path d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+                            <div class="step-content" id="step-2">
+                                <p>
+                                    <strong>Metode:</strong> Mengisi nilai
+                                    kosong dengan placeholder atau nilai modus
+                                </p>
+                                <div class="code-block">
+                                    <code
+                                        >df['director'] =
+                                        df['director'].fillna('Unknown')</code
+                                    >
+                                    <code
+                                        >df['cast'] =
+                                        df['cast'].fillna('Unknown')</code
+                                    >
+                                    <code
+                                        >country_mode =
+                                        df['country'].mode()[0]</code
+                                    >
+                                    <code
+                                        >df['country'] =
+                                        df['country'].fillna(country_mode)</code
+                                    >
+                                </div>
+                                <p><strong>Alasan:</strong></p>
+                                <ul>
+                                    <li>
+                                        <strong>Director & Cast:</strong> Diisi
+                                        dengan "Unknown" karena tidak semua
+                                        konten mencantumkan informasi ini
+                                        (terutama konten dokumenter atau variety
+                                        show)
+                                    </li>
+                                    <li>
+                                        <strong>Country:</strong> Diisi dengan
+                                        nilai modus (negara yang paling sering
+                                        muncul) karena informasi geografis
+                                        penting untuk analisis distribusi konten
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-header" onclick="toggleStep(3)">
+                                <div class="step-number">03</div>
+                                <div class="step-info">
+                                    <h4>Penghapusan Baris Tidak Lengkap</h4>
+                                    <span class="step-status">Drop Rows</span>
+                                </div>
+                                <svg
+                                    class="step-icon"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                >
+                                    <path d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+                            <div class="step-content" id="step-3">
+                                <p>
+                                    <strong>Metode:</strong> Menghapus baris
+                                    dengan nilai kosong pada kolom kritis
+                                </p>
+                                <div class="code-block">
+                                    <code
+                                        >df.dropna(subset=['date_added',
+                                        'rating', 'duration'],
+                                        inplace=True)</code
+                                    >
+                                </div>
+                                <p><strong>Alasan:</strong></p>
+                                <ul>
+                                    <li>
+                                        <strong>date_added:</strong> Esensial
+                                        untuk analisis timeline dan trend
+                                        pertumbuhan konten
+                                    </li>
+                                    <li>
+                                        <strong>rating:</strong> Penting untuk
+                                        analisis distribusi rating dan
+                                        klasifikasi konten
+                                    </li>
+                                    <li>
+                                        <strong>duration:</strong> Krusial untuk
+                                        analisis durasi film dan jumlah season
+                                        TV shows
+                                    </li>
+                                </ul>
+                                <p>
+                                    <strong>Impact:</strong> Hanya ~10-14 baris
+                                    yang dihapus dari total 8,000+ data (< 0.2%
+                                    data loss)
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-header" onclick="toggleStep(4)">
+                                <div class="step-number">04</div>
+                                <div class="step-info">
+                                    <h4>Konversi Tipe Data</h4>
+                                    <span class="step-status"
+                                        >Data Type Conversion</span
+                                    >
+                                </div>
+                                <svg
+                                    class="step-icon"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                >
+                                    <path d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+                            <div class="step-content" id="step-4">
+                                <p>
+                                    <strong>Metode:</strong> Mengkonversi format
+                                    data untuk analisis yang tepat
+                                </p>
+                                <div class="code-block">
+                                    <code
+                                        >df['date_added'] =
+                                        pd.to_datetime(df['date_added'].str.strip(),
+                                        errors='coerce')</code
+                                    >
+                                    <code
+                                        >df.dropna(subset=['date_added'],
+                                        inplace=True)</code
+                                    >
+                                </div>
+                                <p><strong>Proses:</strong></p>
+                                <ul>
+                                    <li>
+                                        Kolom <code>date_added</code> dikonversi
+                                        dari string ke datetime object
+                                    </li>
+                                    <li>
+                                        Whitespace dihilangkan dengan
+                                        <code>.str.strip()</code>
+                                    </li>
+                                    <li>
+                                        Parameter
+                                        <code>errors='coerce'</code> mengubah
+                                        format invalid menjadi NaT (Not a Time)
+                                    </li>
+                                    <li>
+                                        Baris dengan NaT dihapus untuk
+                                        memastikan data temporal yang valid
+                                    </li>
+                                </ul>
+                                <p>
+                                    <strong>Manfaat:</strong> Memungkinkan
+                                    operasi temporal seperti ekstraksi tahun,
+                                    bulan, dan analisis time series
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="step-card success">
+                            <div class="step-header" onclick="toggleStep(5)">
+                                <div class="step-number">✓</div>
+                                <div class="step-info">
+                                    <h4>Hasil Akhir</h4>
+                                    <span class="step-status"
+                                        >Clean Dataset</span
+                                    >
+                                </div>
+                                <svg
+                                    class="step-icon"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                >
+                                    <path d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+                            <div class="step-content" id="step-5">
+                                <div class="success-grid">
+                                    <div class="success-item">
+                                        <div class="success-icon">✅</div>
+                                        <div>
+                                            <strong>Data Completeness</strong>
+                                            <p>
+                                                100% - Tidak ada missing values
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="success-item">
+                                        <div class="success-icon">📊</div>
+                                        <div>
+                                            <strong>Data Quality</strong>
+                                            <p>
+                                                High - Semua kolom memiliki tipe
+                                                data yang sesuai
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="success-item">
+                                        <div class="success-icon">🎯</div>
+                                        <div>
+                                            <strong>Data Retention</strong>
+                                            <p>99.8% - Minimal data loss</p>
+                                        </div>
+                                    </div>
+                                    <div class="success-item">
+                                        <div class="success-icon">🚀</div>
+                                        <div>
+                                            <strong>Ready for Analysis</strong>
+                                            <p>
+                                                Dataset siap untuk visualisasi
+                                                dan insights
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="data-grid">
+                    <div class="data-card">
+                        <div class="card-header">
+                            <h3>📊 Sample Data</h3>
+                            <span class="card-badge">5 Baris Pertama</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="scroll-indicator">
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                >
+                                    <path d="M9 5l7 7-7 7" />
+                                </svg>
+                                <span>Geser untuk melihat lebih banyak</span>
+                            </div>
+                            <div class="table-scroll">
+                                {{ table_head | safe }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="data-card-row">
+                        <div class="data-card compact">
+                            <div class="card-header">
+                                <h3>⚠️ Sebelum Pembersihan</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="scroll-indicator">
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                    >
+                                        <path d="M9 5l7 7-7 7" />
+                                    </svg>
+                                    <span>Scroll →</span>
+                                </div>
+                                <div class="table-scroll">
+                                    {{ missing_before | safe }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="data-card compact success">
+                            <div class="card-header">
+                                <h3>✅ Setelah Pembersihan</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="success-message">
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                    >
+                                        <path
+                                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                                        />
+                                    </svg>
+                                    <p>
+                                        Data berhasil dibersihkan! Tidak ada
+                                        lagi nilai yang hilang.
+                                    </p>
+                                </div>
+                                <div class="scroll-indicator">
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                    >
+                                        <path d="M9 5l7 7-7 7" />
+                                    </svg>
+                                    <span>Scroll →</span>
+                                </div>
+                                <div class="table-scroll">
+                                    {{ missing_after | safe }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Visualization Section -->
+            <section id="visualisasi" class="section">
+                <div class="section-header">
+                    <span class="section-badge">Visualisasi</span>
+                    <h2 class="section-title">Analisis Visual Data Netflix</h2>
+                    <p class="section-description">
+                        Temukan pola dan tren menarik dari data konten Netflix
+                    </p>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="chart-card" data-aos="fade-up">
+                        <div class="chart-number">01</div>
+                        <div class="card-header">
+                            <h3>Perbandingan Tipe Konten</h3>
+                            <span class="chart-type">Pie Chart</span>
+                        </div>
+                        <div class="chart-image">
+                            <img
+                                src="{{ url_for('static', filename=images.pie_chart) }}"
+                                alt="Pie Chart Tipe Konten"
+                                loading="lazy"
+                            />
+                        </div>
+                        <div class="chart-insight">
+                            <div class="insight-icon">💡</div>
+                            <div class="insight-content">
+                                <strong>Key Insight:</strong>
+                                <p>
+                                    Konten di Netflix didominasi oleh Film
+                                    dibandingkan dengan Acara TV, menunjukkan
+                                    preferensi platform terhadap konten
+                                    sinematik.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="chart-card"
+                        data-aos="fade-up"
+                        data-aos-delay="100"
+                    >
+                        <div class="chart-number">02</div>
+                        <div class="card-header">
+                            <h3>Distribusi Tahun Rilis</h3>
+                            <span class="chart-type">Histogram</span>
+                        </div>
+                        <div class="chart-image">
+                            <img
+                                src="{{ url_for('static', filename=images.histogram) }}"
+                                alt="Histogram Tahun Rilis"
+                                loading="lazy"
+                            />
+                        </div>
+                        <div class="chart-insight">
+                            <div class="insight-icon">📈</div>
+                            <div class="insight-content">
+                                <strong>Key Insight:</strong>
+                                <p>
+                                    Mayoritas konten dirilis dalam dekade
+                                    terakhir, dengan lonjakan signifikan mulai
+                                    dari tahun 2010-an.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="chart-card"
+                        data-aos="fade-up"
+                        data-aos-delay="200"
+                    >
+                        <div class="chart-number">03</div>
+                        <div class="card-header">
+                            <h3>Pertumbuhan Konten Tahunan</h3>
+                            <span class="chart-type">Line Chart</span>
+                        </div>
+                        <div class="chart-image">
+                            <img
+                                src="{{ url_for('static', filename=images.line_chart) }}"
+                                alt="Line Chart Pertumbuhan Konten"
+                                loading="lazy"
+                            />
+                        </div>
+                        <div class="chart-insight">
+                            <div class="insight-icon">🚀</div>
+                            <div class="insight-content">
+                                <strong>Key Insight:</strong>
+                                <p>
+                                    Pertumbuhan penambahan konten sangat pesat,
+                                    mencapai puncaknya sekitar tahun 2019-2020.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="chart-card"
+                        data-aos="fade-up"
+                        data-aos-delay="300"
+                    >
+                        <div class="chart-number">04</div>
+                        <div class="card-header">
+                            <h3>Hubungan Tahun Rilis & Durasi</h3>
+                            <span class="chart-type">Scatter Plot</span>
+                        </div>
+                        <div class="chart-image">
+                            <img
+                                src="{{ url_for('static', filename=images.scatter_plot) }}"
+                                alt="Scatter Plot Durasi Film"
+                                loading="lazy"
+                            />
+                        </div>
+                        <div class="chart-insight">
+                            <div class="insight-icon">⏱️</div>
+                            <div class="insight-content">
+                                <strong>Key Insight:</strong>
+                                <p>
+                                    Tidak ada korelasi kuat antara tahun rilis
+                                    dan durasi. Mayoritas film berdurasi 75-150
+                                    menit.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chart-card" data-aos="fade-up">
+                        <div class="chart-number">05</div>
+                        <div class="card-header">
+                            <h3>Distribusi Rating Konten</h3>
+                            <span class="chart-type">Bar Chart</span>
+                        </div>
+                        <div class="chart-image">
+                            <img
+                                src="{{ url_for('static', filename=images.rating_dist) }}"
+                                alt="Distribusi Rating"
+                                loading="lazy"
+                            />
+                        </div>
+                        <div class="chart-insight">
+                            <div class="insight-icon">🎭</div>
+                            <div class="insight-content">
+                                <strong>Key Insight:</strong>
+                                <p>
+                                    Mayoritas konten memiliki rating TV-MA
+                                    (Dewasa) dan TV-14 (Remaja), menunjukkan
+                                    target audiens utama platform.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="chart-card"
+                        data-aos="fade-up"
+                        data-aos-delay="100"
+                    >
+                        <div class="chart-number">06</div>
+                        <div class="card-header">
+                            <h3>Genre Paling Populer</h3>
+                            <span class="chart-type">Horizontal Bar</span>
+                        </div>
+                        <div class="chart-image">
+                            <img
+                                src="{{ url_for('static', filename=images.top_genres) }}"
+                                alt="Top 15 Genre"
+                                loading="lazy"
+                            />
+                        </div>
+                        <div class="chart-insight">
+                            <div class="insight-icon">🎬</div>
+                            <div class="insight-content">
+                                <strong>Key Insight:</strong>
+                                <p>
+                                    Genre Internasional, Drama, dan Komedi
+                                    adalah tiga genre paling dominan, menandakan
+                                    variasi konten yang luas.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="chart-card"
+                        data-aos="fade-up"
+                        data-aos-delay="200"
+                    >
+                        <div class="chart-number">07</div>
+                        <div class="card-header">
+                            <h3>Negara Produsen Terbanyak</h3>
+                            <span class="chart-type">Country Analysis</span>
+                        </div>
+                        <div class="chart-image">
+                            <img
+                                src="{{ url_for('static', filename=images.top_countries) }}"
+                                alt="Top 10 Negara"
+                                loading="lazy"
+                            />
+                        </div>
+                        <div class="chart-insight">
+                            <div class="insight-icon">🌍</div>
+                            <div class="insight-content">
+                                <strong>Key Insight:</strong>
+                                <p>
+                                    Amerika Serikat adalah produsen konten
+                                    terbesar, diikuti oleh India dan Inggris,
+                                    mencerminkan fokus pasar global Netflix.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chart-card wide" data-aos="fade-up">
+                        <div class="chart-number">08</div>
+                        <div class="card-header">
+                            <h3>Top 3 Sutradara Paling Produktif</h3>
+                            <span class="chart-type"
+                                >Multi-Country Comparison</span
+                            >
+                        </div>
+                        <div class="chart-image">
+                            <img
+                                src="{{ url_for('static', filename=images.top_directors) }}"
+                                alt="Top 3 Sutradara"
+                                loading="lazy"
+                            />
+                        </div>
+                        <div class="chart-insight">
+                            <div class="insight-icon">🎥</div>
+                            <div class="insight-content">
+                                <strong>Key Insight:</strong>
+                                <p>
+                                    Grafik menunjukkan sutradara paling
+                                    produktif di negara-negara produsen teratas,
+                                    menyoroti talenta kunci di setiap regional.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="chart-card wide"
+                        data-aos="fade-up"
+                        data-aos-delay="100"
+                    >
+                        <div class="chart-number">09</div>
+                        <div class="card-header">
+                            <h3>Top 3 Aktor Paling Sering Muncul</h3>
+                            <span class="chart-type">Cast Analysis</span>
+                        </div>
+                        <div class="chart-image">
+                            <img
+                                src="{{ url_for('static', filename=images.top_actors) }}"
+                                alt="Top 3 Aktor"
+                                loading="lazy"
+                            />
+                        </div>
+                        <div class="chart-insight">
+                            <div class="insight-icon">⭐</div>
+                            <div class="insight-content">
+                                <strong>Key Insight:</strong>
+                                <p>
+                                    Aktor-aktor ini adalah wajah yang paling
+                                    sering muncul dalam produksi dari negara
+                                    masing-masing, menunjukkan popularitas dan
+                                    produktivitas mereka.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Insights Section -->
+            <section id="insights" class="section">
+                <div class="section-header">
+                    <span class="section-badge">Insights & Learning</span>
+                    <h2 class="section-title">Apa yang Bisa Kita Pelajari?</h2>
+                    <p class="section-description">
+                        Temuan penting dan pembelajaran dari analisis data
+                        Netflix
+                    </p>
+                </div>
+
+                <div class="insights-grid">
+                    <!-- Insight 1 -->
+                    <div class="insight-box">
+                        <div class="insight-header">
+                            <span class="insight-emoji">🎬</span>
+                            <h3>Fokus pada Film</h3>
+                        </div>
+                        <p class="insight-description">
+                            Netflix memiliki <strong>~70% Movies</strong> vs
+                            <strong>~30% TV Shows</strong>. Strategi ini
+                            memberikan variasi konten yang luas dengan waktu
+                            tontonan fleksibel.
+                        </p>
+                        <div class="insight-detail">
+                            <div class="detail-label">Pembelajaran:</div>
+                            <div class="detail-text">
+                                Film menawarkan complete story dalam satu sesi,
+                                cocok untuk binge-watching culture modern.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Insight 2 -->
+                    <div class="insight-box">
+                        <div class="insight-header">
+                            <span class="insight-emoji">📈</span>
+                            <h3>Pertumbuhan Eksponensial</h3>
+                        </div>
+                        <p class="insight-description">
+                            Lonjakan massive penambahan konten terjadi
+                            <strong>2015-2020</strong>, dengan puncaknya di
+                            <strong>2019-2020</strong>. Periode transformasi
+                            dari DVD rental ke production house global.
+                        </p>
+                        <div class="insight-detail">
+                            <div class="detail-label">Pembelajaran:</div>
+                            <div class="detail-text">
+                                Investasi besar dalam konten original
+                                menciptakan competitive advantage melawan
+                                kompetitor seperti Disney+ dan HBO Max.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Insight 3 -->
+                    <div class="insight-box">
+                        <div class="insight-header">
+                            <span class="insight-emoji">🆕</span>
+                            <h3>Konten Modern Dominan</h3>
+                        </div>
+                        <p class="insight-description">
+                            Mayoritas konten dirilis dalam
+                            <strong>10-15 tahun terakhir</strong>. Netflix fokus
+                            pada relevansi dengan audience modern, bukan library
+                            klasik.
+                        </p>
+                        <div class="insight-detail">
+                            <div class="detail-label">Pembelajaran:</div>
+                            <div class="detail-text">
+                                Platform streaming prioritas pada konten fresh
+                                untuk menarik younger demographics dan tetap
+                                relevant.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Insight 4 -->
+                    <div class="insight-box">
+                        <div class="insight-header">
+                            <span class="insight-emoji">🔞</span>
+                            <h3>Target Audience Dewasa</h3>
+                        </div>
+                        <p class="insight-description">
+                            <strong>TV-MA</strong> dan
+                            <strong>TV-14</strong> adalah rating paling dominan.
+                            Target utama adalah audience dewasa dan remaja
+                            mature, bukan family-friendly content.
+                        </p>
+                        <div class="insight-detail">
+                            <div class="detail-label">Pembelajaran:</div>
+                            <div class="detail-text">
+                                Netflix tidak bersaing di pasar Disney+
+                                (family), tetapi fokus pada konten mature dengan
+                                storytelling kompleks.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Insight 5 -->
+                    <div class="insight-box">
+                        <div class="insight-header">
+                            <span class="insight-emoji">⏱️</span>
+                            <h3>Durasi Optimal: 90-120 Menit</h3>
+                        </div>
+                        <p class="insight-description">
+                            Mayoritas film berdurasi
+                            <strong>75-150 menit</strong>, dengan sweet spot di
+                            90-120 menit. Durasi optimal untuk engagement tanpa
+                            viewer fatigue.
+                        </p>
+                        <div class="insight-detail">
+                            <div class="detail-label">Pembelajaran:</div>
+                            <div class="detail-text">
+                                Format standar industri dipertahankan karena
+                                terbukti efektif untuk audience retention.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Insight 6 -->
+                    <div class="insight-box">
+                        <div class="insight-header">
+                            <span class="insight-emoji">🌍</span>
+                            <h3>Ekspansi Global</h3>
+                        </div>
+                        <p class="insight-description">
+                            <strong>USA #1</strong>, <strong>India #2</strong>,
+                            <strong>UK #3</strong> dalam produksi konten.
+                            Netflix aktif melakukan lokalisasi untuk pasar
+                            global.
+                        </p>
+                        <div class="insight-detail">
+                            <div class="detail-label">Pembelajaran:</div>
+                            <div class="detail-text">
+                                Strategi "glocalization" - global reach dengan
+                                local content untuk setiap market.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Insight 7 -->
+                    <div class="insight-box">
+                        <div class="insight-header">
+                            <span class="insight-emoji">🎭</span>
+                            <h3>Genre Diversity</h3>
+                        </div>
+                        <p class="insight-description">
+                            <strong
+                                >International Movies, Drama, dan Comedy</strong
+                            >
+                            adalah top 3 genre. Genre "International"
+                            menunjukkan komitmen pada content diversity.
+                        </p>
+                        <div class="insight-detail">
+                            <div class="detail-label">Pembelajaran:</div>
+                            <div class="detail-text">
+                                Netflix sukses global karena embrace cultural
+                                diversity, bukan hanya Hollywood-centric.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Insight 8 -->
+                    <div class="insight-box">
+                        <div class="insight-header">
+                            <span class="insight-emoji">⭐</span>
+                            <h3>Talenta Lokal</h3>
+                        </div>
+                        <p class="insight-description">
+                            Netflix menggunakan
+                            <strong>sutradara dan aktor lokal</strong> untuk
+                            konten regional. Ini meningkatkan autentisitas dan
+                            resonansi dengan audience lokal.
+                        </p>
+                        <div class="insight-detail">
+                            <div class="detail-label">Pembelajaran:</div>
+                            <div class="detail-text">
+                                Investment dalam talent development lokal
+                                menciptakan konten yang lebih authentic dan
+                                relatable.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Insight 9 - Wide -->
+                    <div class="insight-box wide highlight">
+                        <div class="insight-header">
+                            <span class="insight-emoji">🎯</span>
+                            <h3>Original Content sebagai Competitive Moat</h3>
+                        </div>
+                        <p class="insight-description">
+                            Pertumbuhan massive konten (2015-2020) menunjukkan
+                            strategi membangun
+                            <strong>library original content</strong> yang tidak
+                            bisa didapatkan kompetitor.
+                        </p>
+                        <div class="strategic-points">
+                            <div class="point-item">
+                                <span class="point-icon">✓</span>
+                                <span
+                                    >Reduced dependency pada licensed content
+                                    dari studios</span
+                                >
+                            </div>
+                            <div class="point-item">
+                                <span class="point-icon">✓</span>
+                                <span
+                                    >Full control atas distribution rights
+                                    globally</span
+                                >
+                            </div>
+                            <div class="point-item">
+                                <span class="point-icon">✓</span>
+                                <span
+                                    >Brand differentiation melalui exclusive
+                                    shows</span
+                                >
+                            </div>
+                            <div class="point-item">
+                                <span class="point-icon">✓</span>
+                                <span
+                                    >Data-driven production - tahu persis apa
+                                    yang audience inginkan</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Insight 10 - Wide -->
+                    <div class="insight-box wide">
+                        <div class="insight-header">
+                            <span class="insight-emoji">🔮</span>
+                            <h3>Prediksi Future Strategy</h3>
+                        </div>
+                        <div class="prediction-cards">
+                            <div class="mini-card">
+                                <div class="mini-icon">🌏</div>
+                                <div class="mini-title">
+                                    Ekspansi Asia-Pasifik
+                                </div>
+                                <div class="mini-desc">
+                                    Peningkatan konten dari Korea, Jepang,
+                                    Thailand
+                                </div>
+                            </div>
+                            <div class="mini-card">
+                                <div class="mini-icon">🎮</div>
+                                <div class="mini-title">
+                                    Interactive & Gaming
+                                </div>
+                                <div class="mini-desc">
+                                    Diversifikasi ke interactive experiences dan
+                                    mobile gaming
+                                </div>
+                            </div>
+                            <div class="mini-card">
+                                <div class="mini-icon">📱</div>
+                                <div class="mini-title">Short-Form Content</div>
+                                <div class="mini-desc">
+                                    Kompetisi dengan TikTok/YouTube
+                                </div>
+                            </div>
+                            <div class="mini-card">
+                                <div class="mini-icon">💰</div>
+                                <div class="mini-title">Ad-Supported Tier</div>
+                                <div class="mini-desc">
+                                    Price-sensitive markets (sudah diluncurkan)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Key Takeaways -->
+                <div class="takeaways-section">
+                    <h3 class="takeaways-title">
+                        🎓 Key Takeaways untuk Data Scientists
+                    </h3>
+                    <div class="takeaways-grid">
+                        <div class="takeaway-card">
+                            <div class="takeaway-num">01</div>
+                            <div class="takeaway-info">
+                                <strong>Data Cleaning is Critical</strong>
+                                <p>
+                                    Missing values handling menentukan kualitas
+                                    insights
+                                </p>
+                            </div>
+                        </div>
+                        <div class="takeaway-card">
+                            <div class="takeaway-num">02</div>
+                            <div class="takeaway-info">
+                                <strong>Visualization Tells Stories</strong>
+                                <p>
+                                    Chart yang tepat mengkomunikasikan insight
+                                    lebih baik
+                                </p>
+                            </div>
+                        </div>
+                        <div class="takeaway-card">
+                            <div class="takeaway-num">03</div>
+                            <div class="takeaway-info">
+                                <strong>Context Matters</strong>
+                                <p>
+                                    Pahami industry dynamics untuk extract
+                                    meaningful insights
+                                </p>
+                            </div>
+                        </div>
+                        <div class="takeaway-card">
+                            <div class="takeaway-num">04</div>
+                            <div class="takeaway-info">
+                                <strong>Trends Over Time</strong>
+                                <p>
+                                    Time-series analysis reveals strategic
+                                    shifts
+                                </p>
+                            </div>
+                        </div>
+                        <div class="takeaway-card">
+                            <div class="takeaway-num">05</div>
+                            <div class="takeaway-info">
+                                <strong>Geographic Segmentation</strong>
+                                <p>
+                                    Breaking down by region reveals market
+                                    strategies
+                                </p>
+                            </div>
+                        </div>
+                        <div class="takeaway-card">
+                            <div class="takeaway-num">06</div>
+                            <div class="takeaway-info">
+                                <strong>Actionable Insights</strong>
+                                <p>Connect findings to business decisions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>Netflix Analytics Dashboard</h3>
+                        <p>
+                            Comprehensive analysis of Netflix's content library
+                            and viewing trends.
+                        </p>
+                        <div class="footer-social">
+                            <a
+                                href="https://github.com"
+                                target="_blank"
+                                title="GitHub"
+                            >
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a
+                                href="https://twitter.com"
+                                target="_blank"
+                                title="Twitter"
+                            >
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a
+                                href="https://linkedin.com"
+                                target="_blank"
+                                title="LinkedIn"
+                            >
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="footer-section">
+                        <h4>Quick Links</h4>
+                        <ul class="footer-links">
+                            <li>
+                                <a href="#visualizations">Visualizations</a>
+                            </li>
+                            <li><a href="#insights">Insights</a></li>
+                            <li><a href="#data-cleaning">Data Cleaning</a></li>
+                            <li>
+                                <a
+                                    href="https://www.kaggle.com/datasets/shivamb/netflix-shows"
+                                    target="_blank"
+                                    >Dataset Source</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-section">
+                        <h4>Technologies</h4>
+                        <ul class="footer-links">
+                            <li>Python & Flask</li>
+                            <li>Pandas & NumPy</li>
+                            <li>Matplotlib & Seaborn</li>
+                            <li>HTML5 & CSS3</li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-section">
+                        <h4>Created By</h4>
+                        <ul class="footer-links">
+                            <li>
+                                <strong>Akhmad Nabil Gibran</strong><br />
+                                <a
+                                    href="https://github.com/akhmadnabilgibran"
+                                    target="_blank"
+                                >
+                                    <i class="fab fa-github"></i> GitHub
+                                </a>
+                                |
+                                <a
+                                    href="https://twitter.com/akhmadnabilgibran"
+                                    target="_blank"
+                                >
+                                    <i class="fab fa-twitter"></i> Twitter
+                                </a>
+                            </li>
+                            <li style="margin-top: 10px">
+                                <strong>Veri Abror Hadi</strong><br />
+                                <a
+                                    href="https://instagram.com/veriabror_"
+                                    target="_blank"
+                                >
+                                    <i class="fab fa-instagram"></i> Instagram
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>
+                        &copy; 2024 Netflix Analytics Dashboard. Dataset from
+                        <a
+                            href="https://www.kaggle.com/datasets/shivamb/netflix-shows"
+                            target="_blank"
+                            >Kaggle</a
+                        >
+                        by Shivam Bansal.
+                    </p>
+                    <p>This is a non-commercial educational project.</p>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            // Mobile menu toggle
+            function toggleMenu() {
+                const navMenu = document.querySelector(".nav-menu");
+                const menuToggle = document.querySelector(".menu-toggle");
+                navMenu.classList.toggle("active");
+                menuToggle.classList.toggle("active");
+            }
+
+            // Smooth Scrolling
+            document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+                anchor.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(
+                        this.getAttribute("href")
+                    );
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start",
+                        });
+                        // Close mobile menu if open
+                        const navMenu = document.querySelector(".nav-menu");
+                        const menuToggle =
+                            document.querySelector(".menu-toggle");
+                        if (navMenu && menuToggle) {
+                            navMenu.classList.remove("active");
+                            menuToggle.classList.remove("active");
+                        }
+                    }
+                });
+            });
+
+            // Navbar Background on Scroll
+            window.addEventListener("scroll", () => {
+                const navbar = document.querySelector(".navbar");
+                if (window.scrollY > 50) {
+                    navbar.style.background = "rgba(20, 20, 20, 0.98)";
+                    navbar.style.boxShadow = "0 2px 20px rgba(0, 0, 0, 0.5)";
+                } else {
+                    navbar.style.background = "rgba(20, 20, 20, 0.95)";
+                    navbar.style.boxShadow = "none";
+                }
+            });
+
+            // Accordion Toggle
+            document.querySelectorAll(".accordion-header").forEach((header) => {
+                header.addEventListener("click", () => {
+                    const item = header.parentElement;
+                    const wasActive = item.classList.contains("active");
+
+                    // Close all accordions
+                    document
+                        .querySelectorAll(".accordion-item")
+                        .forEach((i) => {
+                            i.classList.remove("active");
+                        });
+
+                    // Open clicked accordion if it wasn't active
+                    if (!wasActive) {
+                        item.classList.add("active");
+                    }
+                });
+            });
+
+            // Table Scroll Indicators
+            document.querySelectorAll(".table-scroll").forEach((container) => {
+                const indicator = container.querySelector(".scroll-indicator");
+                if (indicator) {
+                    container.addEventListener(
+                        "scroll",
+                        function () {
+                            if (this.scrollLeft > 10) {
+                                indicator.style.display = "none";
+                            }
+                        },
+                        { once: true }
+                    );
+                }
+            });
+
+            // Animated Counter for Stats
+            function animateCounter(element, target, duration = 2000) {
+                let start = 0;
+                const increment = target / (duration / 16);
+                const timer = setInterval(() => {
+                    start += increment;
+                    if (start >= target) {
+                        element.textContent = target.toLocaleString() + "+";
+                        clearInterval(timer);
+                    } else {
+                        element.textContent =
+                            Math.floor(start).toLocaleString() + "+";
+                    }
+                }, 16);
+            }
+
+            // Trigger counter animation when stats are visible
+            const statsObserver = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            const statValue =
+                                entry.target.querySelector(".stat-value");
+                            const targetValue = parseInt(
+                                statValue.textContent.replace(/[^0-9]/g, "")
+                            );
+                            animateCounter(statValue, targetValue);
+                            statsObserver.unobserve(entry.target);
+                        }
+                    });
+                },
+                { threshold: 0.5 }
+            );
+
+            document.querySelectorAll(".stat-item").forEach((stat) => {
+                statsObserver.observe(stat);
+            });
+
+            // Fade in animation for cards
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -100px 0px",
+            };
+
+            const observer = new IntersectionObserver(function (entries) {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = "1";
+                        entry.target.style.transform = "translateY(0)";
+                    }
+                });
+            }, observerOptions);
+
+            document
+                .querySelectorAll(".chart-card, .data-card")
+                .forEach((card) => {
+                    card.style.opacity = "0";
+                    card.style.transform = "translateY(30px)";
+                    card.style.transition =
+                        "opacity 0.6s ease, transform 0.6s ease";
+                    observer.observe(card);
+                });
+        </script>
+    </body>
+</html>
